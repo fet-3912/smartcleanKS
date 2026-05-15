@@ -9,10 +9,10 @@ export default function SectionHeader({ variant, label, sublabel }: SectionHeade
   const textColor = variant === 'yellow' ? 'text-yellow-text' : 'text-white';
 
   return (
-    <div className={`${bg} rounded-lg px-4 md:px-5 py-2 md:py-2.5 flex items-center gap-2`}>
-      <span className={`text-sm md:text-base font-semibold ${textColor}`}>{label}</span>
+    <div className={`${bg} rounded-2xl px-5 py-3 flex items-center gap-3 shadow-sm`}>
+      <span className={`text-base font-semibold tracking-[0.06em] ${textColor}`}>{label}</span>
       {sublabel && (
-        <span className={`text-xs md:text-sm ${textColor} opacity-80`}>{sublabel}</span>
+        <span className={`text-sm ${textColor} opacity-80`}>{sublabel}</span>
       )}
     </div>
   );

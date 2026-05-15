@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Pencil, Eye, Trash2, Plus, Download, Upload, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'lucide-react';
+import { Pencil, Eye, Trash2, Plus, Download, Upload, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight, Printer } from 'lucide-react';
 
 export interface Column {
   key: string;
@@ -115,7 +115,14 @@ export default function TableCard({ columns, data, actions = [], toolbar = [], o
         <div key={rowIndex} className={`flex w-full ${rowIndex % 2 === 1 ? 'bg-gray-400' : 'bg-white'}`}>
           {columns.map(col => (
             <div key={col.key} className="flex-1 h-12 flex items-center px-3 border-b border-l border-gray-300 text-base text-text-dark">
-              {row[col.key]}
+              {col.key === 'actions2' ? (
+                <div className="flex gap-2">
+                  <button title="匯出" className="text-primary hover:text-blue-700" onClick={() => alert('匯出功能')}> <Download size={20} /> </button>
+                  <button title="列印" className="text-primary hover:text-blue-700" onClick={() => alert('列印功能')}> <Printer size={20} /> </button>
+                </div>
+              ) : (
+                row[col.key]
+              )}
             </div>
           ))}
           {actions.length > 0 && (

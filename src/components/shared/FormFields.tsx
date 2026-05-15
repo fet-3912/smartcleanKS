@@ -1,7 +1,7 @@
 import { ChevronDown } from 'lucide-react';
 
 interface SelectFieldProps {
-  label: string;
+  label?: string;
   placeholder?: string;
   options?: string[];
   value?: string;
@@ -11,7 +11,7 @@ interface SelectFieldProps {
 export function SelectField({ label, placeholder = '請選擇', options = [], value, onChange }: SelectFieldProps) {
   return (
     <div className="flex flex-col gap-[5px] flex-1 min-w-0">
-      <label className="text-lg text-black whitespace-nowrap">{label}</label>
+      {label && <label className="text-lg text-black whitespace-nowrap">{label}</label>}
       <div className="relative">
         <select
           value={value}

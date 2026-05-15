@@ -12,8 +12,9 @@ const navItems: NavItem[] = [
   // { label: '智慧清潔', children: [{ label: '清潔列表', path: '/cleaning-list' }] },
   {
     label: '智慧清潔', children: [
-      { label: '清潔通報列表', path: '/mobile/urgent-cleaning' },
-      { label: '清潔通報成功', path: '/mobile/urgent-cleaning/success' },
+      { label: '清潔通報列表(外部)', path: '/mobile/urgent-cleaning/external' },
+      // { label: '清潔通報列表', path: '/mobile/urgent-cleaning' },
+      // { label: '清潔通報成功', path: '/mobile/urgent-cleaning/success' },
       { label: '清潔報表列表', path: '/mobile/cleaning-list' },
       { label: '新增清潔報表', path: '/mobile/cleaning-list/add' },
       { label: '待清潔案件', path: '/mobile/cleaning-list/pending' },
@@ -24,8 +25,8 @@ const navItems: NavItem[] = [
   { label: '清潔列表', path: '/cleaning-list' },
   { label: '報表中心', path: '/reports' },
   { label: '參數設定', path: '/settings' },
-  { label: '帳號權限', path: '/accounts' },
-  { label: '連線狀態查詢', path: '/connection-status' },
+  // { label: '帳號權限', path: '/accounts' },
+  // { label: '連線狀態查詢', path: '/connection-status' },
 ];
 
 export default function Sidebar() {
@@ -81,7 +82,8 @@ export default function Sidebar() {
                 {item.children ? (
                   expanded[item.label] ? <ChevronUp size={15} /> : <ChevronDown size={20} />
                 ) : (
-                  <ChevronDown size={20} />
+                  // <ChevronDown size={20} />
+                  null
                 )}
               </button>
 

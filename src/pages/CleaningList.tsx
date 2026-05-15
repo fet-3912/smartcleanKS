@@ -3,16 +3,13 @@ import TableCard from '../components/shared/TableCard';
 import Modal from '../components/shared/Modal';
 import { useState } from 'react';
 import type { Column, TableAction } from '../components/shared/TableCard';
-// 日期選擇器
-import { DateRangePicker } from 'react-date-range';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
 
 const columns: Column[] = [
-  { key: 'reportDate', label: '通報日期' },
+  { key: 'reportDate', label: '通報時間' },
   { key: 'location', label: '廁所位置' },
   { key: 'cleanType', label: '清潔類型' },
   { key: 'status', label: '案件狀態' },
+  { key: 'endDate', label: '結案時間' },
 ];
 
 const actions: TableAction[] = [
@@ -21,9 +18,9 @@ const actions: TableAction[] = [
 ];
 
 const data = [
-  { reportDate: '2026/2/3 17:00:00', location: 'U-1 西非付費區廁所', cleanType: '設備故障', status: '待清潔' },
-  { reportDate: '2026/2/3 17:00:00', location: 'U-1 西非付費區廁所', cleanType: '廁間再清潔', status: '待清潔' },
-  { reportDate: '2026/2/3 17:00:00', location: 'U-1東非付費區無障礙廁所', cleanType: '廁間再清潔', status: '待清潔' },
+  { reportDate: '2026/2/3 17:00:00', location: 'U-1 西非付費區廁所', cleanType: '設備故障', status: '待清潔', endDate: '2026/2/3 17:00:00' },
+  { reportDate: '2026/2/3 17:00:00', location: 'U-1 西非付費區廁所', cleanType: '廁間再清潔', status: '待清潔', endDate: '2026/2/3 17:00:00' },
+  { reportDate: '2026/2/3 17:00:00', location: 'U-1東非付費區無障礙廁所', cleanType: '廁間再清潔', status: '待清潔', endDate: '2026/2/3 17:00:00' },
 ];
 
 export default function CleaningList() {
@@ -75,7 +72,7 @@ export default function CleaningList() {
             {modalType === 'view' && (
               <>
                 <div>
-                  <span className="font-semibold">通報日期：</span>{modalRow.reportDate}
+                  <span className="font-semibold">通報時間：</span>{modalRow.reportDate}
                 </div>
                 <div>
                   <span className="font-semibold">廁所位置：</span>{modalRow.location}
@@ -85,6 +82,9 @@ export default function CleaningList() {
                 </div>
                 <div>
                   <span className="font-semibold">案件狀態：</span>{modalRow.status}
+                </div>
+                <div>
+                  <span className="font-semibold">結案時間：</span>{modalRow.endDate}
                 </div>
               </>
             )}

@@ -27,7 +27,7 @@ export default function MobileDropdown({
         <select
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
-          className="w-full appearance-none border border-blue rounded-lg px-4 py-3 md:py-3.5 text-sm md:text-base text-text-dark bg-white pr-10 focus:outline-none focus:ring-2 focus:ring-blue/30"
+          className="w-full appearance-none rounded-2xl border border-[#bfdaf0] bg-white px-5 py-4 text-base text-text-dark shadow-sm pr-11 focus:outline-none focus:ring-2 focus:ring-blue/30"
         >
           {placeholder && (
             <option value="" disabled>
@@ -42,7 +42,7 @@ export default function MobileDropdown({
         </select>
         <ChevronDown
           size={18}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-blue pointer-events-none"
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-blue pointer-events-none"
         />
       </div>
     </div>

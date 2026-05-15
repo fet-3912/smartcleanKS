@@ -10,6 +10,7 @@ const tabs = [
   { key: 'station', label: '車站管理' },
   { key: 'qrcode', label: 'QR Code管理' },
   { key: 'cleanType', label: '清潔類型' },
+  { key: 'cleaner', label: '清潔人員名單' },
 ];
 
 // --- Station Management ---
@@ -32,12 +33,13 @@ const qrcodeColumns: Column[] = [
   { key: 'stationName', label: '車站名稱' },
   { key: 'location', label: '廁所位置' },
   { key: 'createdAt', label: '建立時間' },
+  { key: 'actions2', label: '匯出/列印' },
 ];
 
 const qrcodeData = [
-  { id: 'QR001', stationName: '高雄', location: '1F 男廁', createdAt: '2026/2/3 17:00:00' },
-  { id: 'QR002', stationName: '高雄', location: '1F 女廁', createdAt: '2026/2/3 17:00:00' },
-  { id: 'QR003', stationName: '左營', location: '2F 男廁', createdAt: '2026/2/3 17:00:00' },
+  { id: 'QR001', stationName: '高雄', location: '1F 男廁', createdAt: '2026/2/3 17:00:00', actions: '' },
+  { id: 'QR002', stationName: '高雄', location: '1F 女廁', createdAt: '2026/2/3 17:00:00', actions: '' },
+  { id: 'QR003', stationName: '左營', location: '2F 男廁', createdAt: '2026/2/3 17:00:00', actions: '' },
 ];
 
 // --- Clean Type Management ---
@@ -63,6 +65,7 @@ const tableActions: TableAction[] = [
 
 const addToolbar = [{ type: 'add' as const, label: '新增', color: 'blue' as const }];
 
+
 export default function Settings() {
   const [activeTab, setActiveTab] = useState('station');
 
@@ -70,6 +73,7 @@ export default function Settings() {
   const [stationModalOpen, setStationModalOpen] = useState(false);
   const [qrcodeModalOpen, setQrcodeModalOpen] = useState(false);
   const [cleanTypeModalOpen, setCleanTypeModalOpen] = useState(false);
+  const [cleanerModalOpen, setCleanerModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [editFormData, setEditFormData] = useState<Record<string, string | number> | null>(null);
@@ -78,6 +82,9 @@ export default function Settings() {
   // Add Station modal form state
   const [newStationName, setNewStationName] = useState('');
   const [newStationStatus, setNewStationStatus] = useState<'啟用' | '停用'>('啟用');
+  // Add Cleaner modal form state
+  const [newCleanerName, setNewCleanerName] = useState('');
+  const [newCleanerId, setNewCleanerId] = useState('');
 
   const handleToolbarAction = (action: string) => {
     if (action === 'add') {
@@ -89,6 +96,10 @@ export default function Settings() {
         setQrcodeModalOpen(true);
       } else if (activeTab === 'cleanType') {
         setCleanTypeModalOpen(true);
+      } else if (activeTab === 'cleaner') {
+        setNewCleanerName('');
+        setNewCleanerId('');
+        setCleanerModalOpen(true);
       }
     }
   };
@@ -118,8 +129,14 @@ export default function Settings() {
     setQrcodeModalOpen(false);
   };
 
+
   const handleAddCleanType = () => {
     setCleanTypeModalOpen(false);
+  };
+
+  const handleAddCleaner = () => {
+    // TODO: 新增清潔人員邏輯
+    setCleanerModalOpen(false);
   };
 
   const handleEditConfirm = () => {
@@ -193,6 +210,35 @@ export default function Settings() {
           <TableCard
             columns={cleanTypeColumns}
             data={cleanTypeData}
+            actions={tableActions}
+            toolbar={addToolbar}
+            onToolbarAction={handleToolbarAction}
+            onAction={handleTableAction}
+          />
+        </>
+      )}
+      {/* tab 4 */}
+      {activeTab === 'cleaner' && (
+        <>
+          <div className="bg-white rounded-[10px] shadow-[0px_4px_15px_0px_rgba(0,0,0,0.15)] p-5">
+            <div className="flex items-end gap-4">
+              <TextField label="關鍵字" placeholder="請輸入" />
+              <FilterButtons />
+            </div>
+          </div>
+          <TableCard
+            columns={[
+              { key: 'name', label: '姓名' },
+              { key: 'id', label: '編號' },
+              { key: 'createdAt', label: '啟用日期' },
+            ]}
+            data={[
+              { id: 'CL001', name: '王小明', createdAt: '2026/2/3 17:00:00' },
+              { id: 'CL002', name: '李美玲', createdAt: '2026/2/3 17:00:00' },
+              { id: 'CL003', name: '陳志偉', createdAt: '2026/2/3 17:00:00' },
+              { id: 'CL004', name: '林淑芬', createdAt: '2026/2/3 17:00:00' },
+              { id: 'CL005', name: '張建國', createdAt: '2026/2/3 17:00:00' },
+            ]}
             actions={tableActions}
             toolbar={addToolbar}
             onToolbarAction={handleToolbarAction}
@@ -304,6 +350,29 @@ export default function Settings() {
         </div>
       </Modal>
 
+      {/* Add Cleaner Modal */}
+      <Modal
+        title="新增清潔人員"
+        open={cleanerModalOpen}
+        onClose={() => setCleanerModalOpen(false)}
+        onConfirm={handleAddCleaner}
+      >
+        <div className="flex flex-col gap-5">
+          <TextField
+            label="姓名"
+            placeholder="請輸入清潔人員姓名"
+            value={newCleanerName}
+            onChange={setNewCleanerName}
+          />
+          <TextField
+            label="編號"
+            placeholder="請輸入編號"
+            value={newCleanerId}
+            onChange={setNewCleanerId}
+          />
+        </div>
+      </Modal>
+
       {/* 編輯 Modal */}
       <Modal
         title="編輯資料"
@@ -381,6 +450,22 @@ export default function Settings() {
                   ))}
                 </div>
               </div>
+            </>
+          )}
+          {activeTab === 'cleaner' && (
+            <>
+              <TextField
+                label="姓名"
+                placeholder="請輸入清潔人員姓名"
+                value={String(editFormData?.name || '')}
+                onChange={(value) => handleEditChange('name', value)}
+              />
+              <TextField
+                label="編號"
+                placeholder="請輸入編號"
+                value={String(editFormData?.id || '')}
+                onChange={(value) => handleEditChange('id', value)}
+              />
             </>
           )}
         </div>
