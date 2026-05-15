@@ -4,6 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/frontend/smartcleanks/' : '/',
+  base: command === 'build' ? (process.env.VITE_BASE_PATH ?? '/frontend/smartcleanks/') : '/',
   plugins: [react(), tailwindcss()],
 }))
